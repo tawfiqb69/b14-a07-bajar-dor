@@ -8,6 +8,7 @@ import {
   getMarketAvg,
   getPriceDiff,
   getChangeStyle,
+  formatAvgPrice,
 } from "@/lib/utils";
 
 export const instant = false;
@@ -16,9 +17,9 @@ export default async function ProductDetails({ params }) {
   const { slug } = await params;
 
   const res = await fetch(
-  "https://api.abcz.workers.dev/api/bazardor/products",
-  { cache: "no-store" },
-);
+    "https://api.abcz.workers.dev/api/bazardor/products",
+    { cache: "no-store" },
+  );
   const products = await res.json();
 
   const product = products.find((item) => item.slug === slug);
@@ -134,9 +135,7 @@ export default async function ProductDetails({ params }) {
               {formatPrice(summary.min)}{" "}
               <span className="text-base font-medium">টাকা</span>
             </p>
-            <p className="mt-1 text-sm text-gray-600">
-              সবচেয়ে কম দামের বাজার
-            </p>
+            <p className="mt-1 text-sm text-gray-600">সবচেয়ে কম দামের বাজার</p>
           </div>
 
           {/* সর্বাধিক */}
@@ -172,20 +171,25 @@ export default async function ProductDetails({ params }) {
         </h2>
 
         <div className="mt-4 overflow-x-auto rounded-2xl border border-gray-200">
-          <table className="w-full min-w-120 text-sm">
+          <table className="w-full min-w-160 text-sm sm:text-base">
             <thead>
-              <tr className="border-b border-gray-200 text-gray-500">
+              <tr className="text-gray-500">
                 <th className="px-5 py-4 text-left font-semibold">বাজার</th>
                 <th className="px-5 py-4 text-left font-semibold">বিভাগ</th>
-                <th className="px-5 py-4 text-right font-semibold">সর্বনিম্ন</th>
+                <th className="px-5 py-4 text-right font-semibold">
+                  সর্বনিম্ন
+                </th>
                 <th className="px-5 py-4 text-right font-semibold">সর্বাধিক</th>
                 <th className="px-5 py-4 text-right font-semibold">গড়</th>
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-gray-100">
+            <tbody>
               {product.markets.map((market, index) => (
-                <tr key={index}>
+                <tr
+                  key={index}
+                  className="border-t border-gray-300 even:bg-[#f2f5f1]"
+                >
                   <td className="px-5 py-4 text-gray-900">{market.market}</td>
                   <td className="px-5 py-4 text-gray-700">{market.division}</td>
                   <td className="px-5 py-4 text-right text-gray-700">
@@ -194,8 +198,8 @@ export default async function ProductDetails({ params }) {
                   <td className="px-5 py-4 text-right text-gray-700">
                     {formatPrice(market.max)} টাকা
                   </td>
-                  <td className="px-5 py-4 text-right font-semibold text-gray-900">
-                    {formatPrice(getMarketAvg(market))} টাকা
+                  <td className="px-5 py-4 text-right font-bold text-gray-900">
+                    {formatAvgPrice(getMarketAvg(market))} টাকা
                   </td>
                 </tr>
               ))}

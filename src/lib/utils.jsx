@@ -96,9 +96,9 @@ export function getPriceSummary(markets) {
   return { min, max, avg };
 }
 
-// ekta bajar er gor dam
+// ekta bajar er gor dam: (min + max) / 2
 export function getMarketAvg(market) {
-  return Math.round((market.min + market.max) / 2);
+  return (market.min + market.max) / 2;
 }
 
 // goto kal er theke koto taka bedeche/komeche
@@ -112,4 +112,16 @@ export function getChangeStyle(dir) {
   if (dir === "up") return { arrow: "▲", color: "text-red-600" };
   if (dir === "down") return { arrow: "▼", color: "text-green-600" };
   return { arrow: "—", color: "text-gray-500" };
+}
+
+// 62 -> "৬২" , 63.5 -> "৬৩.৫০" (decimal thakle 2 ghor dekhabe)
+export function formatAvgPrice(number) {
+  const hasDecimal = !Number.isInteger(number);
+
+  const text = Number(number).toLocaleString("en-US", {
+    minimumFractionDigits: hasDecimal ? 2 : 0,
+    maximumFractionDigits: 2,
+  });
+
+  return toBnDigits(text);
 }
