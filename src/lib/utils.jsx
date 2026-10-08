@@ -105,3 +105,11 @@ export function getMarketAvg(market) {
 export function getPriceDiff(product) {
   return Math.abs(product.today - product.yesterday);
 }
+
+// ---------- Price change style (▲ ▼ —) ----------
+// ▲ ar ▼ er color ek jaygay thakbe, pore bodlate chaile shudhu ekhane bodlalei hobe
+export function getChangeStyle(dir) {
+  if (dir === "up") return { arrow: "▲", color: "text-red-600" };
+  if (dir === "down") return { arrow: "▼", color: "text-green-600" };
+  return { arrow: "—", color: "text-gray-500" };
+}

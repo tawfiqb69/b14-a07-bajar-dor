@@ -4,3 +4,24 @@
 body {
   background-color: #f2f5f1;
 }
+
+/* Marquee: dan theke bam e ghure */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 90s linear infinite;
+}
+
+/* mouse niye gele thambe */
+.marquee-track:hover {
+  animation-play-state: paused;
+}

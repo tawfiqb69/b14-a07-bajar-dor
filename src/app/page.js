@@ -11,7 +11,7 @@ import {
 
 // Ei component ta data fetch kore
 async function ProductsData() {
-  const res = await fetch("https://api.api-store.workers.dev/api/bazardor/products", {
+  const res = await fetch("https://api.abcz.workers.dev/api/bazardor/products", {
     cache: "no-store",
   });
   const products = await res.json();

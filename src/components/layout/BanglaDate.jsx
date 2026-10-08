@@ -7,7 +7,8 @@ export default function BanglaDate() {
   const [date, setDate] = useState("");
 
   useEffect(() => {
-    setDate(getBanglaDate());
+    const timeout = setTimeout(() => setDate(getBanglaDate()), 0);
+    return () => clearTimeout(timeout);
   }, []);
 
   return <span>{date}</span>;
