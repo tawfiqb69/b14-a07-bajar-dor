@@ -1,0 +1,108 @@
+
+import {
+  formatPrice,
+  formatPercent,
+  getUnitLabel,
+} from "@/lib/utils";
+
+function PriceCard({ product, type }) {
+  const isRiser = type === "riser";
+
+  return (
+    <div className="rounded-2xl border border-gray-200 bg-white p-4">
+      <div className="flex flex-col gap-4">
+        <div className="flex min-w-0 items-center gap-3">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-base-300 text-2xl">
+            {product.image}
+          </div>
+
+          <div className="min-w-0">
+            <p className="truncate font-semibold text-gray-900">
+              {product.nameBn}
+            </p>
+
+            <p className="text-sm text-gray-500">
+              {getUnitLabel(product.unit)}
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-end justify-between">
+          <div className="flex flex-col">
+            <p className="text-sm text-gray-500">
+              আজকের দাম
+            </p>
+
+            <p className="font-semibold text-gray-900">
+              {formatPrice(product.today)} টাকা
+            </p>
+          </div>
+
+          <p
+            className={` text-sm font-semibold ${
+              isRiser ? "text-red-600 bg-red-50 rounded-xl p-1" : "text-green-600 bg-green-50 rounded-xl p-1"
+            }`}
+          >
+            {isRiser ? "▲" : "▼"}{" "}
+            {formatPercent(product.change.pct)}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function PriceMovers({ risers, fallers }) {
+  return (
+    <section className="mt-8">
+      {/* দাম বেড়েছে */}
+      <div>
+        <div className="mb-3 flex items-center justify-between">
+          <h3 className="text-lg font-bold text-gray-900">
+            <span className="text-red-600">▲</span>{" "}
+            আজ দাম বেড়েছে
+          </h3>
+
+          <span className="text-sm text-gray-500">
+            Top 6
+          </span>
+        </div>
+
+        <div className="grid gap-3 md:grid-cols-3">
+          {risers.map((product) => (
+            <PriceCard
+              key={product.id}
+              product={product}
+              type="riser"
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* দাম কমেছে */}
+      <div className="mt-10">
+        <div className="mb-3 flex items-center justify-between">
+          <h3 className="text-lg font-bold text-gray-900">
+            <span className="text-green-600">▼</span>{" "}
+            আজ দাম কমেছে
+          </h3>
+
+          <span className="text-sm text-gray-500">
+            Top 6
+          </span>
+        </div>
+
+        <div className="grid gap-3 md:grid-cols-3">
+          {fallers.map((product) => (
+            <PriceCard
+              key={product.id}
+              product={product}
+              type="faller"
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+

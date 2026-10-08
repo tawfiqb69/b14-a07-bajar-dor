@@ -8,52 +8,50 @@ import {
   getTopRisers,
   getTopFallers,
 } from "@/lib/utils";
+import HeroBanner from "@/components/home/HeroBanner";
+import PriceMovers from "@/components/home/PriceMovers";
+import AllProducts from "@/components/home/AllProducts";
 
 // Ei component ta data fetch kore
+
+
 async function ProductsData() {
-  const res = await fetch("https://api.abcz.workers.dev/api/bazardor/products", {
-    cache: "no-store",
-  });
+  const res = await fetch(
+    "https://api.abcz.workers.dev/api/bazardor/products",
+    {
+      cache: "no-store",
+    }
+  );
+
   const products = await res.json();
 
   const risers = getTopRisers(products);
   const fallers = getTopFallers(products);
 
   return (
-    <div className="space-y-4">
-      
-      <p>মোট পণ্য: {products.length}</p>
+    <div>
+      <PriceMovers
+        risers={risers}
+        fallers={fallers}
+      />
 
-      <div>
-        <h2 className="font-bold">▲ বেড়েছে</h2>
-        {risers.map((p) => (
-          <p key={p.id}>
-            {p.image} {p.nameBn} - {formatPrice(p.today)} টাকা (
-            {getUnitLabel(p.unit)}) ▲ {formatPercent(p.change.pct)}
-          </p>
-        ))}
-      </div>
-
-      <div>
-        <h2 className="font-bold">▼ কমেছে</h2>
-        {fallers.map((p) => (
-          <p key={p.id}>
-            {p.image} {p.nameBn} - {formatPrice(p.today)} টাকা ▼{" "}
-            {formatPercent(p.change.pct)}
-          </p>
-        ))}
-      </div>
+      <AllProducts products={products} />
     </div>
   );
 }
 
+
+
+
+
 // Page ta nije async na, shudhu Suspense diye ProductsData ke mure dey
 export default function Home() {
   return (
-    <div className="p-10">
-      <p>
-        আজকের তারিখ: <BanglaDate />
-      </p>
+    <div className="space-y-8">
+      
+      <HeroBanner />
+
+      
 
       <Suspense fallback={<p>Loading...</p>}>
         <ProductsData />

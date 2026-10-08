@@ -4,8 +4,8 @@ import Link from "next/link";
 
 export default function UserMenu() {
   // Dummy user (pore BetterAuth theke asbe)
-  const user = { name: "Rezwan Ahmed", email: "rezwanahmed@gmail.com" };
-  const firstName = user.name.split(" ")[0];
+  const user = { name: "SM Tawfiq", email: "tawfiq@gmail.com" };
+  const firstName = user.name;
 
   return (
     <div className="dropdown dropdown-end">
