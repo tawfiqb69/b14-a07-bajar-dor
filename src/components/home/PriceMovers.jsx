@@ -1,4 +1,5 @@
 
+import Link from "next/link";
 import {
   formatPrice,
   formatPercent,
@@ -9,8 +10,12 @@ function PriceCard({ product, type }) {
   const isRiser = type === "riser";
 
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-4">
+    <Link
+      href={`/product/${product.slug}`}
+      className="block rounded-2xl border border-gray-200 bg-white p-4 transition hover:-translate-y-1 hover:shadow-md"
+    >
       <div className="flex flex-col gap-4">
+        {/* Product Info */}
         <div className="flex min-w-0 items-center gap-3">
           <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-base-300 text-2xl">
             {product.image}
@@ -27,8 +32,9 @@ function PriceCard({ product, type }) {
           </div>
         </div>
 
+        {/* Price */}
         <div className="flex items-end justify-between">
-          <div className="flex flex-col">
+          <div>
             <p className="text-sm text-gray-500">
               আজকের দাম
             </p>
@@ -38,9 +44,12 @@ function PriceCard({ product, type }) {
             </p>
           </div>
 
+          {/* Price Change */}
           <p
-            className={` text-sm font-semibold ${
-              isRiser ? "text-red-600 bg-red-50 rounded-xl p-1" : "text-green-600 bg-green-50 rounded-xl p-1"
+            className={`rounded-xl p-1 text-sm font-semibold ${
+              isRiser
+                ? "bg-red-50 text-red-600"
+                : "bg-green-50 text-green-600"
             }`}
           >
             {isRiser ? "▲" : "▼"}{" "}
@@ -48,7 +57,7 @@ function PriceCard({ product, type }) {
           </p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -57,15 +66,11 @@ export default function PriceMovers({ risers, fallers }) {
     <section className="mt-8">
       {/* দাম বেড়েছে */}
       <div>
-        <div className="mb-3 flex items-center justify-between">
+        <div className="mb-3">
           <h3 className="text-lg font-bold text-gray-900">
             <span className="text-red-600">▲</span>{" "}
             আজ দাম বেড়েছে
           </h3>
-
-          <span className="text-sm text-gray-500">
-            Top 6
-          </span>
         </div>
 
         <div className="grid gap-3 md:grid-cols-3">
@@ -81,15 +86,11 @@ export default function PriceMovers({ risers, fallers }) {
 
       {/* দাম কমেছে */}
       <div className="mt-10">
-        <div className="mb-3 flex items-center justify-between">
+        <div className="mb-3">
           <h3 className="text-lg font-bold text-gray-900">
             <span className="text-green-600">▼</span>{" "}
             আজ দাম কমেছে
           </h3>
-
-          <span className="text-sm text-gray-500">
-            Top 6
-          </span>
         </div>
 
         <div className="grid gap-3 md:grid-cols-3">

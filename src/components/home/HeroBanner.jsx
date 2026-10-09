@@ -6,15 +6,16 @@ export default function HeroBanner() {
   return (
     <section className="overflow-hidden rounded-3xl bg-white">
       <div className="px-6 pt-3 sm:px-10 md:px-12">
+        
         {/* Date */}
-        <p className="inline-block rounded-lg bg-green-100 px-3 py-0.5 text-sm font-medium leading-4 text-green-700">
-           <BanglaDate />
+        <p className="inline-block rounded-lg bg-green-100 px-3 py-0.5 mt-2 text-sm font-medium leading-4 text-green-700">
+          <BanglaDate />
         </p>
 
         {/* Hero Content */}
-        <div className="-mt-3 flex flex-col items-center justify-between gap-4 pb-5 md:flex-row md:pb-4">
+        <div className="flex flex-col gap-3 pb-5 pt-2 md:-mt-15 md:flex-row md:items-center md:gap-6 md:pb-4 md:pt-0 ">
           {/* Left Content */}
-          <div className="max-w-xl">
+          <div className="w-full max-w-xl">
             <h1 className="m-0 text-3xl font-bold leading-tight text-gray-900 sm:text-4xl">
               আজকের বাজারের দাম এক নজরে
             </h1>
@@ -33,7 +34,7 @@ export default function HeroBanner() {
           </div>
 
           {/* Right Image */}
-          <div className="w-full max-w-xs md:max-w-sm">
+          <div className="mx-auto flex w-full max-w-xs justify-center md:ml-auto md:max-w-sm">
             <Image
               src="/images/bazar-hero.png"
               alt="বাজারের পণ্য"
