@@ -8,7 +8,7 @@ import {
 
 export default async function PriceTicker() {
   const res = await fetch(
-    "https://api.abcz.workers.dev/api/bazardor/products",
+    "https://api.api-store.workers.dev/api/bazardor/products",
     {
       cache: "no-store",
     }

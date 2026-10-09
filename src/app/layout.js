@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import CategoryNav from "@/components/layout/CategoryNav";
 import PriceTicker from "@/components/layout/PriceTicker";
 import Footer from "@/components/layout/Footer";
+import { Toaster } from "react-hot-toast";
 
 const hindSiliguri = Hind_Siliguri({
   subsets: ["bengali", "latin"],
@@ -20,6 +21,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="bn" data-theme="light">
       <body className={hindSiliguri.className}>
+        <Toaster />
         <header className="border-b border-gray-200 bg-[#fbfcfb]">
           <Navbar />
 

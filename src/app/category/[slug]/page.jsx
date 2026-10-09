@@ -7,7 +7,7 @@ export default async function CategoryPage({ params }) {
   const { slug } = await params;
 
   const res = await fetch(
-    `https://api.abcz.workers.dev/api/bazardor/products?category=${slug}`,
+    `https://api.api-store.workers.dev/api/bazardor/products?category=${slug}`,
     {
       cache: "no-store",
     },
