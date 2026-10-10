@@ -101,7 +101,7 @@ export default async function ProductDetails({ params }) {
               </p>
 
               <p className="mt-2 text-sm text-gray-700">
-                গতকালের তুলনায় আজ দাম{" "}
+                গতকালের তুলনায় আজ দাম
                 <span className="font-bold">{dirText}</span>
                 {product.change.dir !== "flat" && (
                   <> · {formatPrice(diff)} টাকা</>
@@ -135,7 +135,7 @@ export default async function ProductDetails({ params }) {
           <div className="rounded-2xl border border-gray-200 p-5">
             <p className="text-sm text-gray-600">সর্বনিম্ন দাম</p>
             <p className="mt-2 text-2xl font-bold text-green-700">
-              {formatPrice(summary.min)}{" "}
+              {formatPrice(summary.min)}
               <span className="text-base font-medium">টাকা</span>
             </p>
             <p className="mt-1 text-sm text-gray-600">সবচেয়ে কম দামের বাজার</p>
@@ -145,7 +145,7 @@ export default async function ProductDetails({ params }) {
           <div className="rounded-2xl border border-gray-200 p-5">
             <p className="text-sm text-gray-600">সর্বাধিক দাম</p>
             <p className="mt-2 text-2xl font-bold text-red-600">
-              {formatPrice(summary.max)}{" "}
+              {formatPrice(summary.max)}
               <span className="text-base font-medium">টাকা</span>
             </p>
             <p className="mt-1 text-sm text-gray-600">
@@ -157,7 +157,7 @@ export default async function ProductDetails({ params }) {
           <div className="rounded-2xl border border-gray-200 p-5">
             <p className="text-sm text-gray-600">গড় দাম</p>
             <p className="mt-2 text-2xl font-bold text-green-700">
-              {formatPrice(summary.avg)}{" "}
+              {formatPrice(summary.avg)}
               <span className="text-base font-medium">টাকা</span>
             </p>
             <p className="mt-1 text-sm text-gray-600">

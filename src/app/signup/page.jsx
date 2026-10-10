@@ -143,7 +143,7 @@ export default function SignUpPage() {
         <SocialButtons disabled={isLoading} />
 
         <p className="mt-5 text-center text-sm text-gray-900">
-          অ্যাকাউন্ট আছে?{" "}
+          অ্যাকাউন্ট আছে?
           <Link href="/signin" className="font-medium text-green-700 hover:underline">
             সাইন ইন করুন
           </Link>

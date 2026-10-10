@@ -22,3 +22,7 @@
 3. **Product Details:** View minimum, maximum, average, and market-wise prices.
 4. **Category Browsing & Sorting:** Browse products by category and sort them by price.
 5. **Secure Authentication:** Sign up and sign in using email/password, Google, or GitHub, with protected routes.
+
+## 🔗 Live Website
+
+[বাজার দর — BazarDor](https://b14-a07-bajar-dor.vercel.app)

@@ -55,7 +55,7 @@ export default function ProductCard({ product }) {
               isRiser ? "text-red-600 bg-red-50 rounded-xl p-1" : "text-green-600 bg-green-50 rounded-xl p-1"
               }`}
             >
-              {isRiser ? "▲" : "▼"}{" "}
+              {isRiser ? "▲" : "▼"}
               {formatPercent(product.change.pct)}
             </p>
           )}

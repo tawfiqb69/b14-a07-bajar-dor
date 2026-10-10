@@ -52,7 +52,7 @@ function PriceCard({ product, type }) {
                 : "bg-green-50 text-green-600"
             }`}
           >
-            {isRiser ? "▲" : "▼"}{" "}
+            {isRiser ? "▲" : "▼"}
             {formatPercent(product.change.pct)}
           </p>
         </div>
@@ -68,7 +68,7 @@ export default function PriceMovers({ risers, fallers }) {
       <div>
         <div className="mb-3">
           <h3 className="text-lg font-bold text-gray-900">
-            <span className="text-red-600">▲</span>{" "}
+            <span className="text-red-600">▲</span>
             আজ দাম বেড়েছে
           </h3>
         </div>
@@ -88,7 +88,7 @@ export default function PriceMovers({ risers, fallers }) {
       <div className="mt-10">
         <div className="mb-3">
           <h3 className="text-lg font-bold text-gray-900">
-            <span className="text-green-600">▼</span>{" "}
+            <span className="text-green-600">▼</span>
             আজ দাম কমেছে
           </h3>
         </div>
