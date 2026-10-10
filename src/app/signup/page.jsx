@@ -24,7 +24,7 @@ export default function SignUpPage() {
       formData.entries(),
     );
 
-    // Dui password mile kina
+  
     if (password !== confirmPassword) {
       toast.error("Passwords do not match!");
       return;
@@ -33,7 +33,7 @@ export default function SignUpPage() {
     setIsLoading(true);
 
     try {
-      // confirmPassword server e pathabo na
+      
       const { data, error } = await authClient.signUp.email({
         name,
         email,
