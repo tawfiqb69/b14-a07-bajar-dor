@@ -8,10 +8,13 @@ import {
 
 export default async function PriceTicker() {
   const res = await fetch(
-    "https://api.api-store.workers.dev/api/bazardor/products",
-    {
-      cache: "no-store",
-    }
+    // "https://api.api-store.workers.dev/api/bazardor/products",
+
+      // Alternative API 
+    "https://openapi.programming-hero.com/api/bazardor/products", 
+    // {
+    //   cache: "no-store",
+    // }
   );
 
   const products = await res.json();

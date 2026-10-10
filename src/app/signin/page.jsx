@@ -1,15 +1,19 @@
-
 "use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
+import { authClient } from "@/lib/auth-client";
+import SocialButtons from "@/components/auth/SocialButtons";
+
+const inputClass =
+  "w-full rounded-xl border border-gray-200 bg-[#fbfcfb] px-4 py-3 text-gray-900 outline-none placeholder:text-gray-500 focus:border-green-600 focus:ring-2 focus:ring-green-100";
+
+const labelClass = "mb-1.5 block text-sm font-semibold text-gray-900";
 
 export default function SignInPage() {
   const router = useRouter();
-
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -31,39 +35,29 @@ export default function SignInPage() {
 
       if (data) {
         toast.success("Signed in successfully!");
-
         router.push("/");
         router.refresh();
       }
     } catch (error) {
-      toast.error(
-        error.message || "Something went wrong. Please try again."
-      );
+      toast.error(error.message || "Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <main className="flex min-h-[75vh] items-center justify-center px-4 py-12">
-      <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
-        <h1 className="text-3xl font-bold text-gray-900">
-          Welcome Back
-        </h1>
+    <main className="mx-auto flex max-w-105 flex-col items-center py-8 sm:py-10">
+      <h1 className="text-3xl font-bold text-gray-900">সাইন ইন</h1>
+      <p className="mt-2 text-center text-sm text-gray-600">
+        বিস্তারিত দাম, বাজার তুলনা ও প্রোফাইল দেখতে অ্যাকাউন্টে ঢুকুন।
+      </p>
 
-        <p className="mt-2 text-sm text-gray-600">
-          Sign in to your Bazar-Dor account.
-        </p>
-
-        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+      <div className="mt-6 w-full rounded-3xl border border-gray-200 bg-[#fbfcfb] p-6">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label
-              htmlFor="email"
-              className="mb-1.5 block text-sm font-medium text-gray-700"
-            >
-              Email Address
+            <label htmlFor="email" className={labelClass}>
+              ইমেইল
             </label>
-
             <input
               id="email"
               name="email"
@@ -71,49 +65,47 @@ export default function SignInPage() {
               placeholder="you@example.com"
               autoComplete="email"
               required
-              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-green-600 focus:ring-2 focus:ring-green-100"
+              className={inputClass}
             />
           </div>
 
           <div>
-            <label
-              htmlFor="password"
-              className="mb-1.5 block text-sm font-medium text-gray-700"
-            >
-              Password
+            <label htmlFor="password" className={labelClass}>
+              পাসওয়ার্ড
             </label>
-
             <input
               id="password"
               name="password"
               type="password"
-              placeholder="Enter your password"
+              placeholder="কমপক্ষে ৮ অক্ষর"
               autoComplete="current-password"
               required
-              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-green-600 focus:ring-2 focus:ring-green-100"
+              className={inputClass}
             />
           </div>
 
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full rounded-lg bg-green-700 px-4 py-3 font-semibold text-white transition hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-60"
+            className="w-full rounded-xl bg-green-700 px-4 py-3 font-semibold text-white shadow-md shadow-green-900/20 transition hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {isLoading ? "Signing In..." : "Sign In"}
+            {isLoading ? "সাইন ইন হচ্ছে..." : "সাইন ইন"}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-gray-600">
-          Don&apos;t have an account?{" "}
-          <Link
-            href="/signup"
-            className="font-semibold text-green-700 hover:underline"
-          >
-            Create Account
+        <SocialButtons disabled={isLoading} />
+
+        <p className="mt-5 text-center text-sm text-gray-900">
+          অ্যাকাউন্ট নেই?{" "}
+          <Link href="/signup" className="font-medium text-green-700 hover:underline">
+            সাইন আপ করুন
           </Link>
         </p>
       </div>
+
+      <Link href="/" className="mt-6 text-sm text-gray-600 hover:text-green-700">
+        ← হোম পেজে ফিরে যান
+      </Link>
     </main>
   );
 }
-

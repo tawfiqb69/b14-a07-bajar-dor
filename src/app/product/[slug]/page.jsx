@@ -11,13 +11,16 @@ import {
   formatAvgPrice,
 } from "@/lib/utils";
 
-export const instant = false;
+// export const instant = false;
 
 export default async function ProductDetails({ params }) {
   const { slug } = await params;
 
   const res = await fetch(
-    "https://api.api-store.workers.dev/api/bazardor/products",
+    // "https://api.api-store.workers.dev/api/bazardor/products",
+
+    // Alternative API
+    "https://openapi.programming-hero.com/api/bazardor/products",
     { cache: "no-store" },
   );
   const products = await res.json();

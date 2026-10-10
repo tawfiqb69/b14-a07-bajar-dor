@@ -20,7 +20,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="bn" data-theme="light">
-      <body className={hindSiliguri.className}>
+      <body className={`${hindSiliguri.className} flex min-h-screen flex-col`}>
         <Toaster />
         <header className="border-b border-gray-200 bg-[#fbfcfb]">
           <Navbar />
@@ -42,7 +42,10 @@ export default function RootLayout({ children }) {
           <PriceTicker />
         </Suspense>
 
-        <main className="mx-auto max-w-6xl px-4 py-6">{children}</main>
+        <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6">
+          {children}
+          
+          </main>
 
         <Footer />
       </body>

@@ -1,22 +1,37 @@
-
 "use client";
 
-import Link from "next/link";
-import { authClient } from "@/lib/auth-client";
-import toast from "react-hot-toast";
-import Image from "next/image";
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import { authClient } from "@/lib/auth-client";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function ProfilePage() {
   const router = useRouter();
+  const signingOut = useRef(false);
 
   const { data: session, isPending } = authClient.useSession();
+  const user = session?.user;
+
+  // Login na thakle sign in page e pathao
+  useEffect(() => {
+    if (!isPending && !session && !signingOut.current) {
+      toast.error("Please sign in to view your profile!", {
+        id: "auth-required",
+      });
+      router.replace("/signin");
+    }
+  }, [isPending, session, router]);
 
   const handleSignOut = async () => {
     try {
+      signingOut.current = true;
+
       const { error } = await authClient.signOut();
 
       if (error) {
+        signingOut.current = false;
         toast.error(error.message || "Sign out failed!");
         return;
       }
@@ -25,135 +40,89 @@ export default function ProfilePage() {
       router.push("/signin");
       router.refresh();
     } catch (error) {
+      signingOut.current = false;
       toast.error(error.message || "Something went wrong!");
     }
   };
 
-
-if (isPending) {
-  return (
-    <div className="flex min-h-[60vh] items-center justify-center">
-      <span className="loading loading-spinner loading-lg text-green-700"></span>
-    </div>
-  );
-}
-
-if (!session) {
-  return (
-    <div className="flex min-h-[60vh] items-center justify-center">
-      <p className="text-gray-600">
-        Redirecting to sign in...
-      </p>
-    </div>
-  );
-}
-
-
-
-  const user = session.user;
-
-  return (
-    <main className="mx-auto max-w-3xl px-4 py-10">
-      <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-        <div className="bg-green-700 px-6 py-8 text-white sm:px-8">
-          <h1 className="text-2xl font-bold sm:text-3xl">
-            My Profile
-          </h1>
-
-          <p className="mt-2 text-sm text-green-100">
-            Manage your Bazar-Dor account.
-          </p>
+  // Loading skeleton
+  if (isPending || !user) {
+    return (
+      <section className="space-y-5">
+        <div className="space-y-2">
+          <div className="skeleton h-8 w-48" />
+          <div className="skeleton h-4 w-64" />
         </div>
+        <div className="skeleton h-32 w-full rounded-3xl" />
+        <div className="skeleton h-64 w-full rounded-3xl" />
+      </section>
+    );
+  }
 
-        <div className="p-6 sm:p-8">
-          <div className="flex flex-col items-center gap-4 border-b border-gray-100 pb-8 sm:flex-row">
+  return (
+    <section className="space-y-5">
+      {/* Title */}
+      <div>
+        <h1 className="text-3xl font-bold text-gray-900">আমার প্রোফাইল</h1>
+        <p className="mt-1 text-sm text-gray-600">
+          আপনার অ্যাকাউন্টের তথ্য এখানে দেখুন।
+        </p>
+      </div>
+
+      {/* User card */}
+      <div className="flex flex-col gap-4 rounded-3xl border border-gray-200 bg-[#fbfcfb] p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+        <div className="flex items-center gap-5">
+          <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-green-100 text-3xl font-bold text-green-800">
             {user.image ? (
               <Image
                 src={user.image}
                 alt={user.name || "User"}
-                width={80}
-                height={80}
-                className="h-20 w-20 rounded-full border border-gray-200 object-cover"
+                height={90}
+                width={90}
+                referrerPolicy="no-referrer"
+                className="h-full w-full object-cover"
               />
             ) : (
-              <div className="flex h-20 w-20 items-center justify-center rounded-full bg-green-100 text-3xl font-bold text-green-800">
-                {user.name?.charAt(0).toUpperCase() || "U"}
-              </div>
+              user.name?.charAt(0).toUpperCase() || "U"
             )}
-
-            <div className="text-center sm:text-left">
-              <h2 className="text-xl font-bold text-gray-900">
-                {user.name || "User"}
-              </h2>
-
-              <p className="mt-1 text-sm text-gray-500">
-                {user.email}
-              </p>
-
-              <span
-                className={`mt-2 inline-block rounded-full px-3 py-1 text-xs font-medium ${
-                  user.emailVerified
-                    ? "bg-green-100 text-green-800"
-                    : "bg-yellow-100 text-yellow-800"
-                }`}
-              >
-                {user.emailVerified
-                  ? "Email Verified"
-                  : "Email Not Verified"}
-              </span>
-            </div>
           </div>
 
-          <section className="mt-6">
-            <h3 className="mb-4 text-lg font-semibold text-gray-900">
-              Account Information
-            </h3>
-
-            <div className="space-y-4">
-              <div className="rounded-lg bg-gray-50 p-4">
-                <p className="text-sm text-gray-500">Full Name</p>
-                <p className="mt-1 font-medium text-gray-900">
-                  {user.name || "Not available"}
-                </p>
-              </div>
-
-              <div className="rounded-lg bg-gray-50 p-4">
-                <p className="text-sm text-gray-500">
-                  Email Address
-                </p>
-                <p className="mt-1 break-all font-medium text-gray-900">
-                  {user.email}
-                </p>
-              </div>
-
-              <div className="rounded-lg bg-gray-50 p-4">
-                <p className="text-sm text-gray-500">User ID</p>
-                <p className="mt-1 break-all font-mono text-sm text-gray-700">
-                  {user.id}
-                </p>
-              </div>
-            </div>
-          </section>
-
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link
-              href="/"
-              className="rounded-lg border border-gray-300 px-5 py-3 text-center font-medium text-gray-700 transition hover:bg-gray-50"
-            >
-              Back to Home
-            </Link>
-
-            <button
-              type="button"
-              onClick={handleSignOut}
-              className="rounded-lg bg-red-600 px-5 py-3 font-semibold text-white transition hover:bg-red-700"
-            >
-              Sign Out
-            </button>
+          <div className="min-w-0">
+            <p className="text-xl font-semibold text-gray-900">{user.name}</p>
+            <p className="break-all text-gray-600">{user.email}</p>
           </div>
         </div>
+
+        <button
+          type="button"
+          onClick={handleSignOut}
+          className="flex w-fit cursor-pointer items-center gap-1.5 rounded-lg border border-red-500 px-4 py-2 text-sm font-medium text-red-600 transition hover:bg-red-50"
+        >
+          <span>↩</span>
+          <span>সাইন আউট</span>
+        </button>
       </div>
-    </main>
+
+{/* তথ্য card */}
+<div className="rounded-3xl border border-gray-200 bg-[#fbfcfb] p-5 sm:p-6">
+  <h2 className="mb-5 text-lg font-semibold text-gray-900">তথ্য</h2>
+
+  <div className="space-y-4 sm:px-6 sm:pb-4">
+    <div>
+      <p className="mb-1.5 text-sm font-semibold text-gray-900">নাম</p>
+      <div className="min-h-12 w-full rounded-xl border border-gray-200 bg-[#fbfcfb] px-4 py-3 text-gray-900">
+        {user.name}
+      </div>
+    </div>
+
+    <Link
+      href="/profile/update"
+      className="block w-full rounded-xl bg-green-700 px-4 py-3 text-center font-semibold text-white shadow-md shadow-green-900/20 transition hover:bg-green-800"
+    >
+      আপডেট
+    </Link>
+  </div>
+</div>
+    </section>
   );
 }
-

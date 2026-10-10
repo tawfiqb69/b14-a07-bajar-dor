@@ -1,13 +1,16 @@
 import CategoryProducts from "@/components/category/CategoryProducts";
 import Link from "next/link";
 
-export const instant = false;
+// export const instant = false;
 
 export default async function CategoryPage({ params }) {
   const { slug } = await params;
 
   const res = await fetch(
-    `https://api.api-store.workers.dev/api/bazardor/products?category=${slug}`,
+    // `https://api.api-store.workers.dev/api/bazardor/products?category=${slug}`,
+
+    // Alternative API 
+    `https://openapi.programming-hero.com/api/bazardor/products?category=${slug}`,
     {
       cache: "no-store",
     },

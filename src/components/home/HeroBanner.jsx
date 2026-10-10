@@ -8,13 +8,13 @@ export default function HeroBanner() {
       <div className="px-6 pt-3 sm:px-10 md:px-12">
         
         {/* Date */}
-        <p className="inline-block rounded-lg bg-green-100 px-3 py-0.5 mt-2 text-sm font-medium leading-4 text-green-700">
+        <p className=" inline-block rounded-lg bg-green-100 px-3 py-0.5 mt-2 text-sm font-semibold leading-4 text-green-700">
           <BanglaDate />
         </p>
 
         {/* Hero Content */}
-        <div className="flex flex-col gap-3 pb-5 pt-2 md:-mt-15 md:flex-row md:items-center md:gap-6 md:pb-4 md:pt-0 ">
-          {/* Left Content */}
+
+<div className="flex flex-col gap-3 pb-5 pt-2 md:mt-0 md:flex-row md:items-center md:gap-6 md:pb-4 md:pt-2 lg:pt-0">          {/* Left Content */}
           <div className="w-full max-w-xl">
             <h1 className="m-0 text-3xl font-bold leading-tight text-gray-900 sm:text-4xl">
               আজকের বাজারের দাম এক নজরে
